@@ -1,0 +1,69 @@
+# 주제: PCAP API를 활용하여 PACKET 정보 출력
+
+# 개념 정리
+
+## 이더넷 프레임 구조
+
+![image.png](attachment:7fffbd88-001f-420f-926b-a60adcc74484:image.png)
+
+- 6바이트: 도착지 주소
+- 6바이트: 출발지 주소
+- 2바이트 Type
+
+## IP 패킷 구조
+
+![image.png](attachment:47a5af29-5a2a-42b9-a7eb-b4e2eac6f60a:image.png)
+
+- 4비트: IP 헤더 길이
+- 4비트: IP 버전
+- TOS: Type of Service
+- Length: 총 길이
+- Identicifation: 식별자
+- FLAG, offst 등등..
+- 마지막 2개: source_ip, destination_ip
+
+## TCP 패킷 구조
+
+![image.png](attachment:76b002b6-1acb-441c-abe8-e74ef334d1ce:image.png)
+
+- Sourece Port: 16비트
+- Destination Port
+- Sequence Number
+- Ack Number
+- offset: 4비트
+- reserved: 4비트
+- Flag, window(흐름제어), Checksum 등등..
+
+# 로직 구성
+
+1. 이더넷 프레임 분해
+    1. 구조체 선언
+2. IP 패킷 분해
+    1. 구조체 선언
+3. TCP 패킷 분해
+    1. 구조체 선언
+    2. TCP 여부 확인
+4. 메세지 출력
+
+
+## 학습 내용
+
+<pcap.h>
+
+![image.png](attachment:bae201bb-ae22-40b4-aa49-0f414232c4b0:image.png)
+
+→ pcap.h의 pcap_pkthdr의 구조.
+
+timeval ts → 패킷이 캡쳐된 시간
+
+caplen → 캡처된 길이 (실제 수집된 데이터 크기)
+
+len → 실제 패킷의 원래 길이
+
+![image.png](attachment:019f1fbe-1922-4e69-9dbf-6d5a17f7f842:image.png)
+
+사용하여 packet의 정보를 이용한다.
+
+# 결론
+
+![image.png](attachment:90c36f29-8858-4953-b6d6-728db74d8d16:image.png)
